@@ -10,8 +10,8 @@ using SportResults.Models;
 namespace SportResults.Migrations
 {
     [DbContext(typeof(SportContext))]
-    [Migration("20210819123226_some_foreign_keys")]
-    partial class some_foreign_keys
+    [Migration("20211230084940_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -116,6 +116,40 @@ namespace SportResults.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("DisciplineType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EditDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Бег на 100м",
+                            StatusId = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EditDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Бег на 60м",
+                            StatusId = 1L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EditDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Прыжок в длину",
+                            StatusId = 1L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EditDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Тройной прыжок в длину",
+                            StatusId = 1L
+                        });
                 });
 
             modelBuilder.Entity("SportResults.Models.Status", b =>
@@ -137,6 +171,22 @@ namespace SportResults.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateDate = new DateTime(2021, 12, 30, 11, 49, 40, 219, DateTimeKind.Local).AddTicks(3819),
+                            EditDate = new DateTime(2021, 12, 30, 11, 49, 40, 220, DateTimeKind.Local).AddTicks(4983),
+                            Name = "Активно"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateDate = new DateTime(2021, 12, 30, 11, 49, 40, 220, DateTimeKind.Local).AddTicks(5977),
+                            EditDate = new DateTime(2021, 12, 30, 11, 49, 40, 220, DateTimeKind.Local).AddTicks(5981),
+                            Name = "Аннулировано"
+                        });
                 });
 
             modelBuilder.Entity("SportResults.Models.Competition", b =>

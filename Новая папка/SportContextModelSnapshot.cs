@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SportResults.Models;
@@ -10,10 +9,9 @@ using SportResults.Models;
 namespace SportResults.Migrations
 {
     [DbContext(typeof(SportContext))]
-    [Migration("20210819120620_init")]
-    partial class init
+    partial class SportContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +45,8 @@ namespace SportResults.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Competitions");
                 });
@@ -83,6 +83,10 @@ namespace SportResults.Migrations
 
                     b.HasIndex("CompetitionId");
 
+                    b.HasIndex("DisciplineTypeId");
+
+                    b.HasIndex("StatusId");
+
                     b.ToTable("Discipline");
                 });
 
@@ -107,7 +111,43 @@ namespace SportResults.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("StatusId");
+
                     b.ToTable("DisciplineType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EditDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Бег на 100м",
+                            StatusId = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EditDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Бег на 60м",
+                            StatusId = 1L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EditDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Прыжок в длину",
+                            StatusId = 1L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EditDate = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Тройной прыжок в длину",
+                            StatusId = 1L
+                        });
                 });
 
             modelBuilder.Entity("SportResults.Models.Status", b =>
@@ -129,6 +169,31 @@ namespace SportResults.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Status");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateDate = new DateTime(2021, 12, 30, 11, 35, 38, 200, DateTimeKind.Local).AddTicks(5725),
+                            EditDate = new DateTime(2021, 12, 30, 11, 35, 38, 201, DateTimeKind.Local).AddTicks(7318),
+                            Name = "Активно"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateDate = new DateTime(2021, 12, 30, 11, 35, 38, 201, DateTimeKind.Local).AddTicks(8329),
+                            EditDate = new DateTime(2021, 12, 30, 11, 35, 38, 201, DateTimeKind.Local).AddTicks(8334),
+                            Name = "Аннулировано"
+                        });
+                });
+
+            modelBuilder.Entity("SportResults.Models.Competition", b =>
+                {
+                    b.HasOne("SportResults.Models.Status", null)
+                        .WithMany("Competitions")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SportResults.Models.Discipline", b =>
@@ -138,11 +203,46 @@ namespace SportResults.Migrations
                         .HasForeignKey("CompetitionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SportResults.Models.DisciplineType", null)
+                        .WithMany("Disciplines")
+                        .HasForeignKey("DisciplineTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SportResults.Models.Status", null)
+                        .WithMany("Disciplines")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SportResults.Models.DisciplineType", b =>
+                {
+                    b.HasOne("SportResults.Models.Status", null)
+                        .WithMany("DisciplineTypes")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SportResults.Models.Competition", b =>
                 {
                     b.Navigation("Disciplines");
+                });
+
+            modelBuilder.Entity("SportResults.Models.DisciplineType", b =>
+                {
+                    b.Navigation("Disciplines");
+                });
+
+            modelBuilder.Entity("SportResults.Models.Status", b =>
+                {
+                    b.Navigation("Competitions");
+
+                    b.Navigation("Disciplines");
+
+                    b.Navigation("DisciplineTypes");
                 });
 #pragma warning restore 612, 618
         }

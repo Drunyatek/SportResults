@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SportResults.Models;
@@ -9,9 +10,10 @@ using SportResults.Models;
 namespace SportResults.Migrations
 {
     [DbContext(typeof(SportContext))]
-    partial class SportContextModelSnapshot : ModelSnapshot
+    [Migration("20211230083538_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,15 +176,15 @@ namespace SportResults.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateDate = new DateTime(2021, 12, 30, 11, 49, 40, 219, DateTimeKind.Local).AddTicks(3819),
-                            EditDate = new DateTime(2021, 12, 30, 11, 49, 40, 220, DateTimeKind.Local).AddTicks(4983),
+                            CreateDate = new DateTime(2021, 12, 30, 11, 35, 38, 200, DateTimeKind.Local).AddTicks(5725),
+                            EditDate = new DateTime(2021, 12, 30, 11, 35, 38, 201, DateTimeKind.Local).AddTicks(7318),
                             Name = "Активно"
                         },
                         new
                         {
                             Id = 2L,
-                            CreateDate = new DateTime(2021, 12, 30, 11, 49, 40, 220, DateTimeKind.Local).AddTicks(5977),
-                            EditDate = new DateTime(2021, 12, 30, 11, 49, 40, 220, DateTimeKind.Local).AddTicks(5981),
+                            CreateDate = new DateTime(2021, 12, 30, 11, 35, 38, 201, DateTimeKind.Local).AddTicks(8329),
+                            EditDate = new DateTime(2021, 12, 30, 11, 35, 38, 201, DateTimeKind.Local).AddTicks(8334),
                             Name = "Аннулировано"
                         });
                 });
