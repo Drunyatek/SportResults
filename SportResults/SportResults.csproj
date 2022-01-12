@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Remove="Class\SeedData.cs" />
+    <Compile Remove="Class\WebHostExtension.cs" />
     <Compile Remove="Migrations\Configuration.cs" />
   </ItemGroup>
 
@@ -19,10 +20,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace SportResults.Models
 {
-    public class Discipline
+    public class discipline
     {
-        public long Id { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime EditDate { get; set; }
-        public long CompetitionId { get; set; }
-        public long StatusId { get; set; }
-        public long DisciplineTypeId { get; set; }
-        public double Result { get; set; }
-        public string Comments { get; set; }
+        public long id { get; set; }
+        public DateTime createdate { get; set; }
+        public DateTime editdate { get; set; }
+        public long competitionid { get; set; }
+        public long statusid { get; set; }
+        public long disciplinetypeid { get; set; }
+        public double result { get; set; }
+        public string comments { get; set; }
 
     }
 }

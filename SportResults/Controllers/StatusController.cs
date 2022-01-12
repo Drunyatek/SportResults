@@ -22,16 +22,16 @@ namespace SportResults.Controllers
 
         // GET: api/Status
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Status>>> GetStatus()
+        public async Task<ActionResult<IEnumerable<status>>> GetStatus()
         {
-            return await _context.Status.ToListAsync();
+            return await _context.status.ToListAsync();
         }
 
         // GET: api/Status/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Status>> GetStatus(long id)
+        public async Task<ActionResult<status>> GetStatus(long id)
         {
-            var status = await _context.Status.FindAsync(id);
+            var status = await _context.status.FindAsync(id);
 
             if (status == null)
             {
@@ -44,14 +44,14 @@ namespace SportResults.Controllers
         // PUT: api/Status/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStatus(long id, Status status)
+        public async Task<IActionResult> PutStatus(long id, status status)
         {
-            if (id != status.Id)
+            if (id != status.id)
             {
                 return BadRequest();
             }
 
-            status.EditDate = DateTime.Now;
+            status.editdate = DateTime.Now;
             _context.Entry(status).State = EntityState.Modified;
 
             try
@@ -76,28 +76,28 @@ namespace SportResults.Controllers
         // POST: api/Status
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Status>> PostStatus(Status status)
+        public async Task<ActionResult<status>> PostStatus(status status)
         {
-            status.CreateDate = DateTime.Now;
-            status.EditDate = DateTime.Now;
+            status.createdate = DateTime.Now;
+            status.editdate = DateTime.Now;
 
-            _context.Status.Add(status);
+            _context.status.Add(status);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStatus", new { id = status.Id }, status);
+            return CreatedAtAction("GetStatus", new { id = status.id }, status);
         }
 
         // DELETE: api/Status/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStatus(long id)
         {
-            var status = await _context.Status.FindAsync(id);
+            var status = await _context.status.FindAsync(id);
             if (status == null)
             {
                 return NotFound();
             }
 
-            _context.Status.Remove(status);
+            _context.status.Remove(status);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -105,7 +105,7 @@ namespace SportResults.Controllers
 
         private bool StatusExists(long id)
         {
-            return _context.Status.Any(e => e.Id == id);
+            return _context.status.Any(e => e.id == id);
         }
     }
 }

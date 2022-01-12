@@ -26,28 +26,28 @@ namespace SportResults.Controllers
         public async Task<ActionResult<IEnumerable<BestResults>>> GetBestResults()
         {
             List<BestResults> bestResults = new List<BestResults>();
-            var disciplineTypes = _context.DisciplineType.ToList();
+            var disciplineTypes = _context.disciplinetype.ToList();
 
-            foreach (DisciplineType disciplineType in disciplineTypes)
+            foreach (disciplinetype disciplineType in disciplineTypes)
             {
                 BestResults results = new BestResults();
-                results.DisciplineTypeName = disciplineType.Name;
-                results.BestDisciplines = await (from _disc in _context.Discipline
-                                           where _disc.StatusId != 2
-                                           && _disc.DisciplineTypeId == disciplineType.Id
-                                           orderby _disc.Result descending
+                results.DisciplineTypeName = disciplineType.name;
+                results.BestDisciplines = await (from _disc in _context.discipline
+                                           where _disc.statusid != 2
+                                           && _disc.disciplinetypeid == disciplineType.id
+                                           orderby _disc.result descending
                                            select new Class.Discipline()
                                            {
-                                               Id = _disc.Id,
-                                               CreateDate = _disc.CreateDate,
-                                               EditDate = _disc.EditDate,
-                                               CompetitionId = _disc.CompetitionId,
-                                               StatusId = _disc.StatusId,
+                                               Id = _disc.id,
+                                               CreateDate = _disc.createdate,
+                                               EditDate = _disc.editdate,
+                                               CompetitionId = _disc.competitionid,
+                                               StatusId = _disc.statusid,
                                                //Status = _disc.
-                                               DisciplineTypeId = _disc.DisciplineTypeId,
+                                               DisciplineTypeId = _disc.disciplinetypeid,
                                                //DisciplineType = _disc.
-                                               Result = _disc.Result,
-                                               Comments = _disc.Comments,
+                                               Result = _disc.result,
+                                               Comments = _disc.comments,
                                            }).AsNoTracking()
                                            .Take(3)
                                            .ToListAsync();

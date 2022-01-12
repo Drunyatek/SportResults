@@ -22,18 +22,18 @@ namespace SportResults.Controllers
 
         // GET: api/DisciplineTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DisciplineType>>> GetDisciplineTypes()
+        public async Task<ActionResult<IEnumerable<disciplinetype>>> GetDisciplineTypes()
         {
-            return await _context.DisciplineType.Where(x => x.StatusId != 2).ToListAsync();
+            return await _context.disciplinetype.Where(x => x.statusid != 2).ToListAsync();
         }
 
         // GET: api/DisciplineTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DisciplineType>> GetDisciplineType(long id)
+        public async Task<ActionResult<disciplinetype>> GetDisciplineType(long id)
         {
-            var disciplineType = await _context.DisciplineType.FindAsync(id);
+            var disciplineType = await _context.disciplinetype.FindAsync(id);
 
-            if (disciplineType != null && disciplineType.StatusId != 2)
+            if (disciplineType != null && disciplineType.statusid != 2)
             {
                 return disciplineType;
             }
@@ -44,14 +44,14 @@ namespace SportResults.Controllers
         // PUT: api/DisciplineTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDisciplineType(long id, DisciplineType disciplineType)
+        public async Task<IActionResult> PutDisciplineType(long id, disciplinetype disciplineType)
         {
-            if (id != disciplineType.Id)
+            if (id != disciplineType.id)
             {
                 return BadRequest();
             }
 
-            disciplineType.EditDate = DateTime.Now;
+            disciplineType.editdate = DateTime.Now;
             _context.Entry(disciplineType).State = EntityState.Modified;
 
             try
@@ -76,30 +76,30 @@ namespace SportResults.Controllers
         // POST: api/DisciplineTypes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DisciplineType>> PostDisciplineType(DisciplineType disciplineType)
+        public async Task<ActionResult<disciplinetype>> PostDisciplineType(disciplinetype disciplineType)
         {
-            disciplineType.CreateDate = DateTime.Now;
-            disciplineType.EditDate = DateTime.Now;
-            disciplineType.StatusId = 1;
+            disciplineType.createdate = DateTime.Now;
+            disciplineType.editdate = DateTime.Now;
+            disciplineType.statusid = 1;
 
-            _context.DisciplineType.Add(disciplineType);
+            _context.disciplinetype.Add(disciplineType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDisciplineType", new { id = disciplineType.Id }, disciplineType);
+            return CreatedAtAction("GetDisciplineType", new { id = disciplineType.id }, disciplineType);
         }
 
         // DELETE: api/DisciplineTypes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDisciplineType(long id)
         {
-            var disciplineType = await _context.DisciplineType.FindAsync(id);
+            var disciplineType = await _context.disciplinetype.FindAsync(id);
             if (disciplineType == null)
             {
                 return NotFound();
             }
 
-            disciplineType.StatusId = 2;
-            _context.DisciplineType.Update(disciplineType);
+            disciplineType.statusid = 2;
+            _context.disciplinetype.Update(disciplineType);
             //_context.DisciplineType.Remove(disciplineType);
             await _context.SaveChangesAsync();
 
@@ -108,7 +108,7 @@ namespace SportResults.Controllers
 
         private bool DisciplineTypeExists(long id)
         {
-            return _context.DisciplineType.Any(e => e.Id == id);
+            return _context.disciplinetype.Any(e => e.id == id);
         }
     }
 }

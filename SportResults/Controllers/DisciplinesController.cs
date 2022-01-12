@@ -22,16 +22,16 @@ namespace SportResults.Controllers
 
         // GET: api/Disciplines
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Discipline>>> GetDiscipline()
+        public async Task<ActionResult<IEnumerable<discipline>>> GetDiscipline()
         {
-            return await _context.Discipline.Where(x => x.StatusId != 2).ToListAsync();
+            return await _context.discipline.Where(x => x.statusid != 2).ToListAsync();
         }
 
         // GET: api/Disciplines/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Discipline>> GetDiscipline(long id)
+        public async Task<ActionResult<discipline>> GetDiscipline(long id)
         {
-            var discipline = await _context.Discipline.FindAsync(id);
+            var discipline = await _context.discipline.FindAsync(id);
 
             if (discipline == null)
             {
@@ -44,22 +44,22 @@ namespace SportResults.Controllers
         [HttpGet("competitionid={competitionId}")]
         public List<Class.Discipline> GetDisciplines(long competitionId)
         {
-            var disciplines = (from _dis in _context.Discipline
-                               join _distype in _context.DisciplineType on _dis.DisciplineTypeId equals _distype.Id
-                               join _status in _context.Status on _dis.StatusId equals _status.Id
-                               where _dis.CompetitionId == competitionId
+            var disciplines = (from _dis in _context.discipline
+                               join _distype in _context.disciplinetype on _dis.disciplinetypeid equals _distype.id
+                               join _status in _context.status on _dis.statusid equals _status.id
+                               where _dis.competitionid == competitionId
                                select new Class.Discipline()
                                {
-                                   Id = _dis.Id,
-                                   CreateDate = _dis.CreateDate,
-                                   EditDate = _dis.EditDate,
-                                   CompetitionId = _dis.CompetitionId,
-                                   StatusId = _dis.StatusId,
-                                   Status = _status.Name,
-                                   DisciplineTypeId = _dis.DisciplineTypeId,
-                                   DisciplineType = _distype.Name,
-                                   Result = _dis.Result,
-                                   Comments = _dis.Comments
+                                   Id = _dis.id,
+                                   CreateDate = _dis.createdate,
+                                   EditDate = _dis.editdate,
+                                   CompetitionId = _dis.competitionid,
+                                   StatusId = _dis.statusid,
+                                   Status = _status.name,
+                                   DisciplineTypeId = _dis.disciplinetypeid,
+                                   DisciplineType = _distype.name,
+                                   Result = _dis.result,
+                                   Comments = _dis.comments
                                 }
                                )
                                .AsNoTracking()
@@ -73,14 +73,14 @@ namespace SportResults.Controllers
         // PUT: api/Disciplines/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDiscipline(long id, Discipline discipline)
+        public async Task<IActionResult> PutDiscipline(long id, discipline discipline)
         {
-            if (id != discipline.Id)
+            if (id != discipline.id)
             {
                 return BadRequest();
             }
 
-            discipline.EditDate = DateTime.Now;
+            discipline.editdate = DateTime.Now;
             _context.Entry(discipline).State = EntityState.Modified;
 
             try
@@ -105,30 +105,30 @@ namespace SportResults.Controllers
         // POST: api/Disciplines
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Discipline>> PostDiscipline(Discipline discipline)
+        public async Task<ActionResult<discipline>> PostDiscipline(discipline discipline)
         {
-            discipline.CreateDate = DateTime.Now;
-            discipline.EditDate = DateTime.Now;
-            discipline.StatusId = 1;
+            discipline.createdate = DateTime.Now;
+            discipline.editdate = DateTime.Now;
+            discipline.statusid = 1;
 
-            _context.Discipline.Add(discipline);
+            _context.discipline.Add(discipline);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscipline", new { id = discipline.Id }, discipline);
+            return CreatedAtAction("GetDiscipline", new { id = discipline.id }, discipline);
         }
 
         // DELETE: api/Disciplines/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDiscipline(long id)
         {
-            var discipline = await _context.Discipline.FindAsync(id);
+            var discipline = await _context.discipline.FindAsync(id);
             if (discipline == null)
             {
                 return NotFound();
             }
 
-            discipline.StatusId = 2;
-            _context.Discipline.Remove(discipline);
+            discipline.statusid = 2;
+            _context.discipline.Remove(discipline);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -136,7 +136,7 @@ namespace SportResults.Controllers
 
         private bool DisciplineExists(long id)
         {
-            return _context.Discipline.Any(e => e.Id == id);
+            return _context.discipline.Any(e => e.id == id);
         }
     }
 }

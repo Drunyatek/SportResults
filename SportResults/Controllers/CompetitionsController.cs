@@ -22,25 +22,25 @@ namespace SportResults.Controllers
 
         // GET: api/Competitions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Competition>>> GetCompetitions()
+        public async Task<ActionResult<IEnumerable<competition>>> GetCompetitions()
         {
-            return await _context.Competitions.Where(x => x.StatusId != 2).ToListAsync();
+            return await _context.competitions.Where(x => x.statusid != 2).ToListAsync();
         }
 
         // GET: api/Competitions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Class.Competition>> GetCompetition(long id)
         {
-            var competition = (from _comp in _context.Competitions
+            var competition = (from _comp in _context.competitions
                                select new Class.Competition()
                                {
-                                   Id = _comp.Id,
-                                   CreateDate = _comp.CreateDate,
-                                   EditDate = _comp.EditDate,
-                                   StatusId = _comp.StatusId,
-                                   Name = _comp.Name,
-                                   Date = _comp.Date,
-                                   Comments = _comp.Comments,
+                                   Id = _comp.id,
+                                   CreateDate = _comp.createdate,
+                                   EditDate = _comp.editdate,
+                                   StatusId = _comp.statusid,
+                                   Name = _comp.name,
+                                   Date = _comp.date,
+                                   Comments = _comp.comments,
                                 }).AsNoTracking()
                                .FirstOrDefault();
 
@@ -58,14 +58,14 @@ namespace SportResults.Controllers
         // PUT: api/Competitions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompetition(long id, Competition competition)
+        public async Task<IActionResult> PutCompetition(long id, competition competition)
         {
-            if (id != competition.Id)
+            if (id != competition.id)
             {
                 return BadRequest();
             }
 
-            competition.EditDate = DateTime.Now;
+            competition.editdate = DateTime.Now;
             _context.Entry(competition).State = EntityState.Modified;
 
             try
@@ -90,31 +90,31 @@ namespace SportResults.Controllers
         // POST: api/Competitions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Competition>> PostCompetition(Competition competition)
+        public async Task<ActionResult<competition>> PostCompetition(competition competition)
         {
-            competition.CreateDate = DateTime.Now;
-            competition.EditDate = DateTime.Now;
-            competition.StatusId = 1;
+            competition.createdate = DateTime.Now;
+            competition.editdate = DateTime.Now;
+            competition.statusid = 1;
 
-            _context.Competitions.Add(competition);
+            _context.competitions.Add(competition);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCompetition), new { id = competition.Id }, competition);
+            return CreatedAtAction(nameof(GetCompetition), new { id = competition.id }, competition);
         }
 
         // DELETE: api/Competitions/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompetition(long id)
         {
-            var competition = await _context.Competitions.FindAsync(id);
+            var competition = await _context.competitions.FindAsync(id);
             if (competition == null)
             {
                 return NotFound();
             }
 
-            competition.EditDate = DateTime.Now;
-            competition.StatusId = 2;
-            _context.Competitions.Update(competition);
+            competition.editdate = DateTime.Now;
+            competition.statusid = 2;
+            _context.competitions.Update(competition);
             //_context.Competitions.Remove(competition);
 
             await _context.SaveChangesAsync();
@@ -124,7 +124,7 @@ namespace SportResults.Controllers
 
         private bool CompetitionExists(long id)
         {
-            return _context.Competitions.Any(e => e.Id == id);
+            return _context.competitions.Any(e => e.id == id);
         }
     }
 }
