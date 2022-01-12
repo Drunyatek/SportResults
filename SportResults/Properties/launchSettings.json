@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://10.16.1.243:50389",
+      "applicationUrl": "http://localhost:50389",
       "sslPort": 44375
     }
   },
@@ -22,10 +22,11 @@
       "dotnetRunMessages": "true",
       "launchBrowser": true,
       "launchUrl": "api/Competitions",
-      "applicationUrl": "https://10.16.1.243:5001;http://10.16.1.243:5000",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "sslPort": 44375
     }
   }
 }

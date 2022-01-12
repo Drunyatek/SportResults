@@ -23,6 +23,7 @@ namespace SportResults
         {
             services.AddControllers();
             services.AddMvc();
+
             //services.AddDbContext<SportContext>(options => options.UseNpgsql(Configuration.GetConnectionString("SportDatabase")));
             services.AddDbContext<SportContext>(options => options.UseNpgsql(this.GetConnection()));
         }
@@ -63,7 +64,7 @@ namespace SportResults
             var pgHost = pgHostPort.Split(":")[0];
             var pgPort = pgHostPort.Split(":")[1];
 
-            string connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+            string connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};SSL Mode=Require;Trust Server Certificate=true";
 
             return connStr;
         }
