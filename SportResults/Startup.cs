@@ -24,8 +24,8 @@ namespace SportResults
             services.AddControllers();
             services.AddMvc();
 
-            //services.AddDbContext<SportContext>(options => options.UseNpgsql(Configuration.GetConnectionString("SportDatabase")));
-            services.AddDbContext<SportContext>(options => options.UseNpgsql(this.GetConnection()));
+            services.AddDbContext<SportContext>(options => options.UseNpgsql(Configuration.GetConnectionString("SportDatabase")));
+            //services.AddDbContext<SportContext>(options => options.UseNpgsql(this.GetConnection()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
