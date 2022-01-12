@@ -50,8 +50,8 @@ namespace SportResults
         {
             // Heroku provides PostgreSQL connection URL via env variable
             var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            //var connUrl = "postgres://gowalcodcibfig:f9e8d8fabd198f254677f54cc2adae7e2f5c155a70352690796bd56ca5ca7d8d@ec2-54-242-43-231.compute-1.amazonaws.com:5432/dadqneqm1o0vp";
-        
+            //var connUrl = "postgres://khdjuofeysyojq:9fa41221085600b03556d88281843b2c5202b4b7b048e0dcd865b55a71672c78@ec2-34-230-198-12.compute-1.amazonaws.com:5432/d9sp2b2302n1dq";
+
 
             // Parse connection URL to connection string for Npgsql
             connUrl = connUrl.Replace("postgres://", string.Empty);
