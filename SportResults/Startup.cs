@@ -24,8 +24,8 @@ namespace SportResults
             services.AddControllers();
             services.AddMvc();
 
-            services.AddDbContext<SportContext>(options => options.UseNpgsql(Configuration.GetConnectionString("SportDatabase")));
-            //services.AddDbContext<SportContext>(options => options.UseNpgsql(this.GetConnection()));
+            //services.AddDbContext<SportContext>(options => options.UseNpgsql(Configuration.GetConnectionString("SportDatabase")));
+            services.AddDbContext<SportContext>(options => options.UseNpgsql(this.GetConnection()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,8 +49,8 @@ namespace SportResults
         private string GetConnection()
         {
             // Heroku provides PostgreSQL connection URL via env variable
-            //var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            var connUrl = "postgres://gowalcodcibfig:f9e8d8fabd198f254677f54cc2adae7e2f5c155a70352690796bd56ca5ca7d8d@ec2-54-242-43-231.compute-1.amazonaws.com:5432/dadqneqm1o0vp";
+            var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            //var connUrl = "postgres://gowalcodcibfig:f9e8d8fabd198f254677f54cc2adae7e2f5c155a70352690796bd56ca5ca7d8d@ec2-54-242-43-231.compute-1.amazonaws.com:5432/dadqneqm1o0vp";
         
 
             // Parse connection URL to connection string for Npgsql
